@@ -9,11 +9,12 @@ import java.io.*;
 import java.math.*;
 class Q1{
     static Scanner sc1 = new Scanner(System.in);
-    static PrintWriter out = new PrintWriter(System.out);
+    static PrintWriter out;
     static FastReader sc = new FastReader();
     final static int MOD = 1000000007;
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception{
+    	out  = new PrintWriter("src/output.txt");
         int t = 1;
         t = sc.nextInt();
         while(t-->0){

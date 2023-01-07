@@ -17,7 +17,7 @@ public class Two {
         map.put(11, "November");
         map.put(12, "December");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        br.lines().forEach(n -> {
+        br.lines().map(Integer::parseInt).forEach(n -> {
             System.out.println(map.get(n));
         });
     }
