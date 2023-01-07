@@ -13,25 +13,27 @@ public class Advantage extends PrintWriter {
 		Advantage o = new Advantage();
 		o.main();
 		o.flush();
+		o.close();
 
 	}
 
 	void main() {
 		for (int t = sc.nextInt(); t-- > 0;) {
 			int N = sc.nextInt();
-			int max = 0 , max1 = 0;
+			int max = 0, max1 = 0;
 			int[] arr = new int[N];
-			for(int i = 0;i<N;i++) {
+			for (int i = 0; i < N; i++) {
 				int a = arr[i] = sc.nextInt();
-				if(max < a) {
-					max1 = max; max = a;
-				}else if(max1 < a) {
+				if (max < a) {
+					max1 = max;
+					max = a;
+				} else if (max1 < a) {
 					max1 = a;
 				}
 			}
-			for(int i = 0;i<N;i++) {
+			for (int i = 0; i < N; i++) {
 				int a = arr[i] == max ? max1 : max;
-				print(arr[i] - a +" ");
+				print(arr[i] - a + " ");
 			}
 			println();
 		}

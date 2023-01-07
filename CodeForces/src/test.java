@@ -7,8 +7,8 @@ public class test {
 	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		//      out = new PrintWriter("src/output.txt");
-		//		sc = new FastScanner("src/input.txt", "src/output.txt");
+		// out = new PrintWriter("src/output.txt");
+		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
 		cases = sc.nextInt();
@@ -18,37 +18,37 @@ public class test {
 
 	public static void solve() {
 		int N = sc.nextInt();
-		if(N == 3) {
+		if (N == 3) {
 			System.out.println("NO");
 			return;
 		} else {
 			System.out.println("YES");
 			boolean pos = true;
 			StringJoiner j = new StringJoiner(" ");
-				if (N % 2 == 0) {
-				for(int i = 0; i < N; i++) {
-					if(pos) {
+			if (N % 2 == 0) {
+				for (int i = 0; i < N; i++) {
+					if (pos) {
 						j.add(250 + "");
-					}else {
+					} else {
 						j.add((-1) * 250 + "");
 					}
 					pos = !pos;
 				}
-			}else {
-				int val = N/2;
+			} else {
+				int val = N / 2;
 				pos = false;
-				for(int i = 0; i < N; i++) {
-					if(pos) {
+				for (int i = 0; i < N; i++) {
+					if (pos) {
 						j.add(val + "");
-					}else {
+					} else {
 						j.add(1 - val + "");
 					}
 					pos = !pos;
 				}
 			}
-				System.out.println(j);
+			System.out.println(j);
 		}
-		
+
 	}
 
 	static class FastScanner extends PrintWriter {
