@@ -1,4 +1,3 @@
-
 /*
     Somewhere, something incredible is waiting to be known
     Don’t worry about failure; you only have to be right once.
@@ -9,7 +8,7 @@ import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class Q3 {
+public class template {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();

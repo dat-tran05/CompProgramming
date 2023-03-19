@@ -7,7 +7,7 @@ import java.util.*;
 import java.lang.*;
 import java.io.*;
 import java.math.*;
-class Q1{
+public class Q1{
     static Scanner sc1 = new Scanner(System.in);
     static PrintWriter out;
     static FastReader sc = new FastReader();
@@ -24,25 +24,19 @@ class Q1{
     }
     public static void solve(){
     	int n = sc.nextInt();
-    	if(isPrime(n)) {
-    		out.println(-1);
-    		return;
-    	}
-    	int i;
-    	for(i = 2; i < n; i++) {
-    		if(n % i == 0) {
-    			out.println(1 + " " + i + " " + n/i);
-    			return;
-    		}
-    	}
+        String s = sc.next();
+        int zeros = 0, ones = 0;
+        for(char c : s.toCharArray()){
+            if(c == '0') zeros++;
+            else ones++;
+        }
+        if(zeros >= ones){
+            out.println(ones);
+        }else {
+            out.println(zeros + 1);
+        }
       }
- 
-//      4
-//      36
-//      57
-//      81
-//      98
-//     
+
     public static long[] readArray(int n){
         long[] ret = new long[n];
         for(int i = 0;i<n;i++){
@@ -114,8 +108,8 @@ class Q1{
             return b;
         return gcd(b%a, a);
     }
-}
-class Pair{
+
+static class Pair{
     int first;
     int second;
     public Pair(int f, int s){
@@ -123,7 +117,7 @@ class Pair{
         second = s;
     }
 }
-    class FastReader {
+    static class FastReader {
     BufferedReader br;
     StringTokenizer st;
   
@@ -171,4 +165,5 @@ class Pair{
         }
         return str;
     }
+}
 }
