@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class D {
+public class CurrentQuestion {
 	static FastScanner sc;
 	static PrintWriter out;
 
@@ -15,43 +15,35 @@ public class D {
 		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
-		cases = sc.nextInt();
+//		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
 		out.close();
 	}
 
 	public static void solve() {
-		int n = sc.nextInt(), q = sc.nextInt();
-		int[] arr = new int[n];
-		arr[0] = sc.nextInt();
-		int sum = 0;
-		for (int i = 1; i < n; i++) {
-			int a = sc.nextInt();
-			arr[i] = arr[i - 1] + a;
-			sum += a;
+		int n = sc.nextInt(), m = sc.nextInt();
+		int[][] segs = new int[n][2], path = new int[m][2];
+		for (int i = 0; i < n; i++) {
+			segs[i][0] = sc.nextInt();
+			segs[i][1] = sc.nextInt();
 		}
-//		out.println(Arrays.toString(arr));
-		while (q-- > 0) {
-			int l = sc.nextInt(), r = sc.nextInt(), k = sc.nextInt();
-			l--;
-			r--;
-			int around = 0;
-			if (l - 1 < 0)
-				around += 0;
-			else
-				around += arr[l - 1];
-			around += arr[n - 1] - arr[r];
-			int add = (r - l + 1) * k;
-			int total = around + add;
-//			out.println(around + " " + total);
-			if (total % 2 == 0) {
-				out.println("NO");
-			} else {
-				out.println("YES");
+		for (int i = 0; i < m; i++) {
+			path[i][0] = sc.nextInt();
+			path[i][1] = sc.nextInt();
+		}
+		int curr = 0, blockIndex = 0, pathIndex = 0, diff = 0;
+		for (int i = 0; i < m; i++) {
+			curr += path[i][0];
+			int temp = segs[blockIndex][0];
+			int cowSpeed = path[i][1], limit = segs[blockIndex][1];
+			diff = Math.max(cowSpeed - limit, diff);
+			if (curr > temp) {
+				curr -= temp;
+				blockIndex++;
 			}
-
 		}
+		out.println(diff);
 
 	}
 

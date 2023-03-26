@@ -11,51 +11,20 @@ public class E {
 	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		// out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);// "src/output.txt");
 		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
 		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
+		out.close();
+		out.flush();
 	}
 
-	/*
-	 * 
-	 * -5 5 -5 5 5 -5 -5 5
-	 */
 	public static void solve() {
-		int n = sc.nextInt();
-		int[] arr = new int[n];
-		for (int i = 0; i < n; i++)
-			arr[i] = sc.nextInt();
-		for (int i = 0; i < n - 1; i++) {
-			int first = arr[i], sec = arr[i + 1];
-			if (first >= 0 && sec >= 0)
-				continue;
-			if (first < 0 && sec < 0) {
-				arr[i] = -arr[i];
-				arr[i + 1] = -arr[i + 1];
-			} else if (first < 0 && Math.abs(first) > sec) {
-				arr[i] = -arr[i];
-				arr[i + 1] = -arr[i + 1];
-			} else if (sec < 0 && Math.abs(sec) > first) {
-				arr[i] = -arr[i];
-				arr[i + 1] = -arr[i + 1];
-			} else {
-				if (first > 0) {
-					continue;
-				} else {
-					arr[i] = -arr[i];
-					arr[i + 1] = -arr[i + 1];
-				}
-			}
-		}
-		int sum = 0;
-		for (int i : arr)
-			sum += i;
-//		System.out.println(Arrays.toString(arr));
-		System.out.println(sum);
+
+		out.flush();
 	}
 
 	static class FastScanner extends PrintWriter {

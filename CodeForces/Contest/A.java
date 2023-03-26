@@ -22,7 +22,12 @@ public class A {
 	}
 
 	public static void solve() {
-
+		int a = sc.nextInt(), b = sc.nextInt(), c = sc.nextInt();
+		if (a + b == c) {
+			out.println("+");
+		} else {
+			out.println("-");
+		}
 	}
 
 	static class FastScanner extends PrintWriter {

@@ -11,37 +11,33 @@ public class B {
 	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		// out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);// "src/output.txt");
 		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
 		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
+		out.close();
 	}
 
 	public static void solve() {
 		int n = sc.nextInt();
-		String s = sc.next();
-		int x = 0, y = 0;
-		boolean check = false;
-		for (char c : s.toCharArray()) {
-			if (x == 1 && y == 1) {
-				check = true;
-				break;
-			}
-			if (c == 'L')
-				x--;
-			if (c == 'R')
-				x++;
-			if (c == 'D')
-				y--;
-			if (c == 'U')
-				y++;
+		int[] arr = new int[n];
+		int even = 0, odd = 0;
+		for (int i = 0; i < n; i++) {
+			int a = arr[i] = sc.nextInt();
+			if (a % 2 == 0)
+				even += a;
+			else
+				odd += a;
 		}
-		if (x == 1 && y == 1)
-			check = true;
-		System.out.println(check ? "YES" : "NO");
+		if (even > odd) {
+			out.println("YES");
+		} else {
+			out.println("NO");
+		}
+
 	}
 
 	static class FastScanner extends PrintWriter {

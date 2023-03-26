@@ -4,48 +4,79 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Set;
 
 public class G1 {
 	static FastScanner sc;
 	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		// out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);// "src/output.txt");
 		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
 		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
+		out.close();
+		System.out.flush();
 	}
 
 	public static void solve() {
-		int n = sc.nextInt(), coins = sc.nextInt();
+		int n = sc.nextInt();
+		List<Integer> list = new ArrayList<>();
+		for (int i = 0; i < n; i++)
+			list.add(sc.nextInt());
+		Collections.sort(list);// Comparator.reverseOrder());
 		int[] arr = new int[n];
-		int[] cost = new int[n];
-		int min = Integer.MAX_VALUE, minIndex = 0;
 		for (int i = 0; i < n; i++) {
-			int a = arr[i] = sc.nextInt();
-			cost[i] = a + i + 1;
-			if (cost[i] < min) {
-				minIndex = i;
-				min = cost[i];
-			}
+			int a = arr[i] = list.get(i);
 		}
-		Arrays.sort(cost);
-		int tp = 0;
-		for (int i : cost) {
-			if (coins < i)
+		boolean check = true;
+		for (int i = 0; i < n; i++) {
+			if (arr[i] == 1)
+				continue;
+			int target = arr[i];
+			boolean val = find(target, arr, i);
+			if (!val) {
+				check = false;
 				break;
-			else {
-				tp++;
-				coins -= i;
 			}
 		}
-		System.out.println(tp);
+		out.println(check ? "YES" : "NO");
+	}
 
+	public static boolean find(int tar, int[] arr, int i) {
+		boolean found = false;
+		Set<Integer> set = new HashSet<>();
+		for (int j = 0; j < i; j++) {
+			int current = arr[j];
+			set.add(current);
+			int sum = current;
+			for (int k = j + 1; k < i; k++) {
+				sum += arr[k];
+				set.add(sum);
+			}
+		}
+//		out.println(set + " " + tar);
+//		int[] prefix = new int[i+1];
+//		prefix[0] = arr[0];
+//		int lastIndex = 0;
+//		for(int j = 1; j < i + 1; j ++) {
+//			prefix[j] = prefix[j-1] + arr[j];
+//			if(prefix[j] == tar) return true;
+//			if(prefix[j] > tar) {
+//				lastIndex = j;
+//				break;
+//			}
+//		}
+
+		return set.contains(tar);
 	}
 
 	static class FastScanner extends PrintWriter {

@@ -4,34 +4,49 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map;
 
 public class C {
 	static FastScanner sc;
 	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		// out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);// "src/output.txt");
 		// sc = new FastScanner("src/input.txt", "src/output.txt");
 		sc = new FastScanner();
 		int cases = 1;
 		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
+		out.close();
 	}
 
 	public static void solve() {
 		int n = sc.nextInt();
 		String s = sc.next();
-		for (int i = 0; i < s.length() / 2; i++) {
-			char start = s.charAt(i), end = s.charAt(s.length() - 1 - i);
-			if ((start == '0' && end == '1') || (start == '1' && end == '0')) {
-				n -= 2;
+		if (n == 1) {
+			out.println("YES");
+			return;
+		}
+		boolean check = true;
+		Map<Character, Integer> map = new HashMap<>();
+		for (int i = 0; i < n; i++) {
+			char c = s.charAt(i);
+			if (map.containsKey(c)) {
+				int i1 = map.get(c);
+				if ((i - i1) % 2 != 0) {
+					check = false;
+					break;
+				} else {
+					map.put(c, i);
+				}
 			} else {
-				break;
+				map.put(c, i);
 			}
 		}
-		System.out.println(n);
+		out.println(check ? "YES" : "NO");
 	}
 
 	static class FastScanner extends PrintWriter {
