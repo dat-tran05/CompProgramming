@@ -6,72 +6,59 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class CurrentQuestion {
+public class mooOperatiosn {
 	static FastScanner sc;
-	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-//		out = new PrintWriter(System.out);
-		sc = new FastScanner("speeding.in", "speeding.out");
-//		sc = new FastScanner();
+//		sc = new FastScanner("mooOperatiosn.in", "mooOperatiosn.out");
+		sc = new FastScanner();
 		int cases = 1;
-//		cases = sc.nextInt();
+		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
 		sc.close();
-//		out.close();
 	}
 
-	/*
-	 * 
-	 * 3 3 40 75 50 35 10 45 40 75 20 30 40 30
-	 */
 	public static void solve() {
-		int n = sc.nextInt(), m = sc.nextInt();
-		int[] segs = new int[100], path = new int[100];
-		int miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				segs[miles++] = lim;
+		String s = sc.next();
+		int n = s.length();
+		if (n < 3) {
+			sc.println(-1);
+			return;
 		}
-		miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				path[miles++] = lim;
+		if (s.contains("MOO")) {
+			sc.println(n - 3);
+			return;
 		}
-		int diff = 0;
-		for (int i = 0; i < 100; i++) {
-			diff = Math.max(diff, path[i] - segs[i]);
+		int min = n;
+		boolean possible = false;
+		for (int i = 0; i < n - 2; i++) {
+			int temp = getForThree(s.substring(i, i + 3));
+			if (temp > -1)
+				possible = true;
+			else
+				continue;
+			if (temp < min) {
+				min = temp;
+			}
 		}
-		sc.println(diff);
-//		int[][] segs = new int[n][2], path = new int[m][2];
-//		for (int i = 0; i < n; i++) {
-//			segs[i][0] = sc.nextInt();
-//			segs[i][1] = sc.nextInt();
-//		}
-//		for (int i = 0; i < m; i++) {
-//			path[i][0] = sc.nextInt();
-//			path[i][1] = sc.nextInt();
-//		}
-//		int curr = 0, blockIndex = 0, pathIndex = 0, diff = 0;
-//		for (int i = 0; i < m; i++) {
-//			curr += path[i][0];
-//			int temp = segs[blockIndex][0];
-//			int cowSpeed = path[i][1], limit = segs[blockIndex][1];
-//			diff = Math.max(cowSpeed - limit, diff);
-//			while (curr > temp) {
-//				curr -= temp;
-//				blockIndex++;
-//				temp = segs[blockIndex][0];
-//				limit = segs[blockIndex][1];
-//				diff = Math.max(cowSpeed - limit, diff);
-//			}
-//			
-//		}
-//		sc.println(diff);
+		if (!possible)
+			sc.println(-1);
+		else
+			sc.println(min + n - 3);
+	}
 
+	public static int getForThree(String s) {
+		if (s.charAt(1) == 'M')
+			return -1;
+		else {
+			int count = 0;
+			if (s.charAt(0) == 'O')
+				count++;
+			if (s.charAt(2) == 'M')
+				count++;
+			return count;
+		}
 	}
 
 	static class FastScanner extends PrintWriter {

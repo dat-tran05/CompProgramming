@@ -6,72 +6,58 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class CurrentQuestion {
+public class gymnastics {
 	static FastScanner sc;
-	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-//		out = new PrintWriter(System.out);
-		sc = new FastScanner("speeding.in", "speeding.out");
+		sc = new FastScanner("gymnastics.in", "gymnastics.out");
 //		sc = new FastScanner();
 		int cases = 1;
 //		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
 		sc.close();
-//		out.close();
 	}
 
-	/*
-	 * 
-	 * 3 3 40 75 50 35 10 45 40 75 20 30 40 30
-	 */
 	public static void solve() {
-		int n = sc.nextInt(), m = sc.nextInt();
-		int[] segs = new int[100], path = new int[100];
-		int miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				segs[miles++] = lim;
+		int K = sc.nextInt(), N = sc.nextInt();
+		int[][] grid = new int[10][20];
+		for (int i = 0; i < K; i++) {
+			for (int j = 0; j < N; j++) {
+				grid[i][j] = sc.nextInt() - 1;
+			}
 		}
-		miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				path[miles++] = lim;
+		int[][] pairs = new int[20][20];
+		for (int i = 0; i < K; i++) {
+			for (int j = 0; j < N; j++) {
+				int curr = grid[i][j];
+				for (int k = j + 1; k < N; k++) {
+					pairs[curr][grid[i][k]]++;
+				}
+			}
 		}
-		int diff = 0;
-		for (int i = 0; i < 100; i++) {
-			diff = Math.max(diff, path[i] - segs[i]);
+		int count = 0;
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				if (pairs[i][j] == K)
+					count++;
+			}
 		}
-		sc.println(diff);
-//		int[][] segs = new int[n][2], path = new int[m][2];
-//		for (int i = 0; i < n; i++) {
-//			segs[i][0] = sc.nextInt();
-//			segs[i][1] = sc.nextInt();
+		sc.println(count);
+//		int pairs = (N - 1) * N / 2;
+//		int[] arr = new int[N + 1];
+//		for (int i = 0; i < N; i++) {
+//			arr[sc.nextInt()] = N - 1 - i;
 //		}
-//		for (int i = 0; i < m; i++) {
-//			path[i][0] = sc.nextInt();
-//			path[i][1] = sc.nextInt();
-//		}
-//		int curr = 0, blockIndex = 0, pathIndex = 0, diff = 0;
-//		for (int i = 0; i < m; i++) {
-//			curr += path[i][0];
-//			int temp = segs[blockIndex][0];
-//			int cowSpeed = path[i][1], limit = segs[blockIndex][1];
-//			diff = Math.max(cowSpeed - limit, diff);
-//			while (curr > temp) {
-//				curr -= temp;
-//				blockIndex++;
-//				temp = segs[blockIndex][0];
-//				limit = segs[blockIndex][1];
-//				diff = Math.max(cowSpeed - limit, diff);
+//		if (K == 1)
+//			sc.println(pairs);
+//		else {
+//			for (int i = 1; i < K; i++) {
+//				int a = sc.nextInt();
+//				arr[a] = Math.min(N - 1 - i, arr[a]);
 //			}
-//			
 //		}
-//		sc.println(diff);
-
+//		sc.println(Arrays.stream(arr).sum());
 	}
 
 	static class FastScanner extends PrintWriter {

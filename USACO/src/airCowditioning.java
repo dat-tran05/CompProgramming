@@ -6,72 +6,41 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class CurrentQuestion {
+public class airCowditioning {
 	static FastScanner sc;
-	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-//		out = new PrintWriter(System.out);
-		sc = new FastScanner("speeding.in", "speeding.out");
-//		sc = new FastScanner();
+//		sc = new FastScanner("airCowditioning.in", "airCowditioning.out");
+		sc = new FastScanner();
 		int cases = 1;
 //		cases = sc.nextInt();
 		while (cases-- > 0)
 			solve();
 		sc.close();
-//		out.close();
 	}
 
-	/*
-	 * 
-	 * 3 3 40 75 50 35 10 45 40 75 20 30 40 30
-	 */
 	public static void solve() {
-		int n = sc.nextInt(), m = sc.nextInt();
-		int[] segs = new int[100], path = new int[100];
-		int miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				segs[miles++] = lim;
+		int N = sc.nextInt(), M = sc.nextInt();
+		int[] arr = new int[100];
+		for (int i = 0; i < N; i++) {
+			int start = sc.nextInt(), end = sc.nextInt(), amount = sc.nextInt();
+			for (; start <= end; start++) {
+				arr[start] = amount;
+			}
 		}
-		miles = 0;
-		for (int i = 0; i < n; i++) {
-			int dist = sc.nextInt(), lim = sc.nextInt();
-			for (int j = 0; j < dist; j++)
-				path[miles++] = lim;
+		int totalCost = 0;
+		int[][] ac = new int[M][4];
+		for (int i = 0; i < M; i++) {
+			int l = sc.nextInt(), r = sc.nextInt(), cool = sc.nextInt(), cost = sc.nextInt();
+			ac[i][0] = l;
+			ac[i][1] = r;
+			ac[i][2] = cool;
+			ac[i][3] = cost;
+			totalCost += cost;
 		}
-		int diff = 0;
-		for (int i = 0; i < 100; i++) {
-			diff = Math.max(diff, path[i] - segs[i]);
-		}
-		sc.println(diff);
-//		int[][] segs = new int[n][2], path = new int[m][2];
-//		for (int i = 0; i < n; i++) {
-//			segs[i][0] = sc.nextInt();
-//			segs[i][1] = sc.nextInt();
-//		}
-//		for (int i = 0; i < m; i++) {
-//			path[i][0] = sc.nextInt();
-//			path[i][1] = sc.nextInt();
-//		}
-//		int curr = 0, blockIndex = 0, pathIndex = 0, diff = 0;
-//		for (int i = 0; i < m; i++) {
-//			curr += path[i][0];
-//			int temp = segs[blockIndex][0];
-//			int cowSpeed = path[i][1], limit = segs[blockIndex][1];
-//			diff = Math.max(cowSpeed - limit, diff);
-//			while (curr > temp) {
-//				curr -= temp;
-//				blockIndex++;
-//				temp = segs[blockIndex][0];
-//				limit = segs[blockIndex][1];
-//				diff = Math.max(cowSpeed - limit, diff);
-//			}
-//			
-//		}
-//		sc.println(diff);
+		for (int i = 0; i < M; i++) {
 
+		}
 	}
 
 	static class FastScanner extends PrintWriter {

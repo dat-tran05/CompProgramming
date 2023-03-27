@@ -6,7 +6,7 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.InputMismatchException;
 
-public class CurrentQuestion {
+public class speeding {
 	static FastScanner sc;
 	static PrintWriter out;
 
