@@ -1,41 +1,60 @@
-import java.util.*;
-import java.io.*;
-import java.math.*;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.InputMismatchException;
+import java.util.List;
 
-public class CurrentQuestion extends PrintWriter {
-	CurrentQuestion() {
-		super(System.out);
-	}
-
-	FastScanner sc = new FastScanner();
+public class guessTheAnimalName{
+	static FastScanner sc;
+	static PrintWriter out;
 
 	public static void main(String[] nutz) throws IOException {
-		CurrentQuestion o = new CurrentQuestion();
-		o.main();
-		o.flush();
-
+//		out = new PrintWriter(System.out);
+		sc = new FastScanner("guess.in", "guess.out");
+//		sc = new FastScanner();
+		int cases = 1;
+//		cases = sc.nextInt();
+		while (cases-- > 0)
+			solve();
+		sc.close();
+//		out.close();
 	}
 
-	void main() {
-		for (int t = 1; t-- > 0;) {
-			int N = sc.nextInt();
-			int[] x = new int[N], y = new int[N];
-			for(int i = 0; i < N ; i++) x[i] = sc.nextInt();
-			for(int i = 0; i < N ; i++) y[i] = sc.nextInt();
-			int max = 0;
-			for(int i =0 ; i < N -1 ; i++) {
-				for(int j = 0; j < N -1; j++) {
-					max = Math.max(max,  getDistance2(x[i], y[i], x[j+1], y[j+1]));
-				}
-			}
-			println(max);
-			
+	/*
+	 * 
+	 * 3 3 40 75 50 35 10 45 40 75 20 30 40 30
+	 */
+	public static void solve() {
+		int n = sc.nextInt();
+		List<List<String>> list = new ArrayList<>();
+		for(int i = 0; i < n; i++) {
+			sc.next();
+			sc.next();
+			String[] arr = sc.nextLine().trim().split(" ");
+			list.add(Arrays.asList(arr));
 		}
-	}
-	public static int getDistance2(int x, int y, int x2, int y2) {
-		return (int)(Math.pow(x - x2,2) + Math.pow(y - y2, 2));
+		int max = 0;
+		for(int i = 0; i < n; i++) {
+			for(int j =0;j < n;j++) {
+				if(i == j) continue;
+				List<String> temp = list.get(i), temp2 = list.get(j);
+				int count = 0;
+				for(String s : temp) {
+					if(temp2.contains(s)) count++;
+				}
+				max = Math.max(count, max);
+			}
+		}
+		sc.println(max + 1);
+		
 	}
 
+	
 	static class FastScanner extends PrintWriter {
 		private InputStream stream;
 		private byte[] buf = new byte[1 << 16];
