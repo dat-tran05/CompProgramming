@@ -8,7 +8,7 @@ import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class Q5 {
+public class wordsearch {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();
@@ -25,29 +25,69 @@ public class Q5 {
 	}
 
 	public static void solve() {
-		int n = sc.nextInt();
-		int[] arr = readIntArray(n);
-		int x = arr[n-2] + arr[n-1];
-		int sl = 0, l = 0;
-		for(int i : arr) {
-			if(i == arr[n-2]) sl++;
-			else if(i == arr[n-1]) l++;
+		String s = sc.nextLine();
+		String reversed = new StringBuilder(s).reverse().toString();
+		int r = sc.nextInt(), c = sc.nextInt();
+		char[][] grid = new char[r][c];
+		for(int i =0; i < r; i++) {
+			grid[i] = sc.nextLine().toCharArray();
 		}
-		if(arr[n-2] == arr[n-1]) {
-			int others = n - l - sl;
-			if(others+1 < l + sl) {
-				out.println("NO");
-				return;
+		int len = s.length();
+		boolean horizontal = false, vertical = false;
+		int index = 0, endIndex = 0, dimension = 0;
+		for(int i =0; i < r;i++) {
+			String row = new String(grid[i]);
+			index = Math.max(row.indexOf(s),row.indexOf(reversed));
+			if(index >= 0) {
+				endIndex = index + len;
+				horizontal = true;
+				dimension = i;
+				break;
 			}
 		}
-		else {
-			int others = n - l - sl;
-			if(others <= 0) {
-				out.println("NO");
-				return;
+		if(horizontal) {
+			for(int i =0; i < r;i++) {
+				for(int j =0;j < c;j++) {
+					if(j >= index && j < endIndex && i == dimension) {
+						out.print(grid[i][j]);
+					}
+					else out.print("#");
+				}
+				out.println();
 			}
 		}
-		out.println("YES");
+		for(int j =0; j < c;j++) {
+			String word = "";
+			for(int i =0;i < r;i++) {
+				word += grid[i][j];
+			}
+			index = Math.max(word.indexOf(s),word.indexOf(reversed));
+			if(index >= 0) {
+				endIndex = index + len;
+				 vertical = true;
+				dimension = j;
+				break;
+			}
+		}
+		if(vertical) {
+			for(int i =0; i < r;i++) {
+				for(int j =0;j < c;j++) {
+					if(i >= index && i < endIndex && j == dimension) {
+						out.print(grid[i][j]);
+					}
+					else out.print("#");
+				}
+				out.println();
+			}
+		}
+//		for(char[] arr : grid) {
+//			for(char c1 : arr) {
+//				out.print(c1);
+//			}
+//			out.println();
+//		}
+		sc.nextLine();
+		out.println();
 	}
 
 	public static long[] readArray(int n) {

@@ -8,7 +8,7 @@ import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class Q5 {
+public class updog {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();
@@ -25,29 +25,15 @@ public class Q5 {
 	}
 
 	public static void solve() {
-		int n = sc.nextInt();
-		int[] arr = readIntArray(n);
-		int x = arr[n-2] + arr[n-1];
-		int sl = 0, l = 0;
-		for(int i : arr) {
-			if(i == arr[n-2]) sl++;
-			else if(i == arr[n-1]) l++;
+		String s = sc.nextLine();
+		String temp = "it smells like ";
+		s = s.substring(temp.length(), s.lastIndexOf("in here")).trim();
+		if(s.startsWith("up")) {
+			out.println("what's that");
+		}else {
+			out.println("what's " + s);
 		}
-		if(arr[n-2] == arr[n-1]) {
-			int others = n - l - sl;
-			if(others+1 < l + sl) {
-				out.println("NO");
-				return;
-			}
-		}
-		else {
-			int others = n - l - sl;
-			if(others <= 0) {
-				out.println("NO");
-				return;
-			}
-		}
-		out.println("YES");
+		
 	}
 
 	public static long[] readArray(int n) {

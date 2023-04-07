@@ -8,7 +8,7 @@ import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class Q5 {
+public class amogus {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();
@@ -26,30 +26,55 @@ public class Q5 {
 
 	public static void solve() {
 		int n = sc.nextInt();
-		int[] arr = readIntArray(n);
-		int x = arr[n-2] + arr[n-1];
-		int sl = 0, l = 0;
-		for(int i : arr) {
-			if(i == arr[n-2]) sl++;
-			else if(i == arr[n-1]) l++;
+		int[] arr = new int[n+2];
+		for(int i =0 ; i<n;i++) {
+			int a = sc.nextInt() - 1;
+			arr[a]++;
 		}
-		if(arr[n-2] == arr[n-1]) {
-			int others = n - l - sl;
-			if(others+1 < l + sl) {
-				out.println("NO");
-				return;
+		Sus[] sussies = new Sus[2], civ = new Sus[n];
+		int ii =0, j = 0;;
+		for(int i = 0; i < n+2;i++) {
+			if(i >= n) sussies[ii++] = new Sus(i, arr[i], true);
+			else civ[j++] = new Sus(i,arr[i], false);
+		}
+		Arrays.sort(sussies);
+		Arrays.sort(civ);
+		Sus one = sussies[0], two = civ[0];
+		for(int i = 1; i < n;i++) {
+			if(two.votes == civ[i].votes)
+				two = civ[i];
+		}
+		if(one.votes > two.votes) {
+			if(one.votes > two.votes + 2) {
+				out.println("SKIP SKIP");
+			}else {
+				out.println((two.index+1) + " " + (two.index+1));
 			}
+		}else if(one.votes == two.votes){
+			out.println((two.index+1) + " SKIP");
+		}else {
+			out.println((civ[n-1].index+1+"") +" " + (civ[n-1].index+1+""));
 		}
-		else {
-			int others = n - l - sl;
-			if(others <= 0) {
-				out.println("NO");
-				return;
-			}
-		}
-		out.println("YES");
+		
+		sc.nextLine();
 	}
-
+	static class Sus implements Comparable<Sus>{
+		int votes;
+		int index;
+		boolean sus;
+		public Sus(int index, int votes, boolean sus) {
+			this.index = index;
+			this.votes = votes;
+			this.sus= sus;
+		}
+		public int compareTo(Sus o) {
+			int index = Integer.compare(o.votes, this.votes);
+			if(index == 0) {
+				index = Integer.compare(o.index, this.index);
+			}
+			return index;
+		}
+	}
 	public static long[] readArray(int n) {
 		long[] ret = new long[n];
 		for (int i = 0; i < n; i++) {

@@ -8,14 +8,18 @@ import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class Q5 {
+public class cipher {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();
 	final static int MOD = 1000000007;
-
+	static char[] alphabet = new char[128];
 	public static void main(String[] args) throws Exception {
 		out = new PrintWriter(System.out);
+		for(int i =0 ; i <13;i++) {
+			alphabet['z' - i] = (char)('a' + i);
+			alphabet['a'+ i] = (char)('z' - i);
+		}
 		int t = 1;
 		t = sc.nextInt();
 		while (t-- > 0) {
@@ -25,31 +29,51 @@ public class Q5 {
 	}
 
 	public static void solve() {
-		int n = sc.nextInt();
-		int[] arr = readIntArray(n);
-		int x = arr[n-2] + arr[n-1];
-		int sl = 0, l = 0;
-		for(int i : arr) {
-			if(i == arr[n-2]) sl++;
-			else if(i == arr[n-1]) l++;
-		}
-		if(arr[n-2] == arr[n-1]) {
-			int others = n - l - sl;
-			if(others+1 < l + sl) {
-				out.println("NO");
-				return;
+		String line = sc.nextLine();
+		int mods = sc.nextInt();
+//		sc.nextLine();
+		String[] arr = sc.nextLine().split(" ");
+		//C - Caesar , Atbash - Opposite, R - Reversed
+		StringBuilder sb = new StringBuilder(line);
+		for(int j = mods - 1;j >=0;j--) {
+			String s = arr[j];
+			if(s.charAt(0) == 'R') {
+				sb = sb.reverse();
+			}else if(s.charAt(0) == 'A') {
+				for(int i =0; i < sb.length();i++) {
+					char c = sb.charAt(i);
+					if(Character.isAlphabetic(c)) {
+						sb.setCharAt(i, alphabet[c]);
+					}
+				}
+			}else {
+				sb = doCaesar(sb, Integer.parseInt(s.substring(1)));
 			}
-		}
-		else {
-			int others = n - l - sl;
-			if(others <= 0) {
-				out.println("NO");
-				return;
-			}
-		}
-		out.println("YES");
+		}	
+		out.println(sb +"\n");
+		
+		sc.nextLine();
 	}
-
+	public static StringBuilder doCaesar(StringBuilder sb, int inc) {
+		inc = -inc;
+		inc %= 26;
+		for(int i =0; i < sb.length(); i++) {
+			char c = sb.charAt(i);
+			if(Character.isAlphabetic(c)) {
+				int newC = c + inc;
+				if(newC < 'a') {
+					int diff = 'a' - newC;
+					newC = 'z' - diff + 1;
+				}else if(newC > 'z') {
+					int diff = newC - 'z';
+					newC = 'a' + diff -1;
+				}
+				sb.setCharAt(i, (char) newC);
+			}
+			
+		}
+		return sb;
+	}
 	public static long[] readArray(int n) {
 		long[] ret = new long[n];
 		for (int i = 0; i < n; i++) {

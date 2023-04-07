@@ -15,7 +15,7 @@ public class Q4 {
 	final static int MOD = 1000000007;
 
 	public static void main(String[] args) throws Exception {
-		out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);
 		int t = 1;
 		t = sc.nextInt();
 		while (t-- > 0) {
@@ -25,7 +25,23 @@ public class Q4 {
 	}
 
 	public static void solve() {
-		
+		int n = sc.nextInt();
+		String s = sc.next();
+		int count = 1, co = 0;
+		int current = 1, curr = 0;
+		for(int i = 1; i < n;i++) {
+			int e = Integer.parseInt(s.substring(i-1,i));
+			curr ^= e;
+			current ^= e;
+			count+=current;
+			co += curr;
+		}
+		out.println(Math.max(co,count));
+	}
+	public static int result(char c, char c2) {
+		if(c == '0' && c2 == '0') return 0;
+		if(c == '1' && c2 == '1') return 0;
+		return 1;
 	}
 
 	public static long[] readArray(int n) {

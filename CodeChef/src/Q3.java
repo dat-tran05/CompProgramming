@@ -1,4 +1,3 @@
-
 /*
     Somewhere, something incredible is waiting to be known
     Don’t worry about failure; you only have to be right once.
@@ -16,7 +15,7 @@ public class Q3 {
 	final static int MOD = 1000000007;
 
 	public static void main(String[] args) throws Exception {
-		out = new PrintWriter("src/output.txt");
+		out = new PrintWriter(System.out);
 		int t = 1;
 		t = sc.nextInt();
 		while (t-- > 0) {
@@ -26,7 +25,14 @@ public class Q3 {
 	}
 
 	public static void solve() {
-		
+		int n = sc.nextInt(), k = sc.nextInt();
+		StringBuilder sb = new StringBuilder(sc.next());
+		if(sb.charAt(0) == '0') {
+			sb.setCharAt(0, '1');
+			k--;
+		}
+		while(k-- > 0)sb.append('0');
+		out.println(sb);
 	}
 
 	public static long[] readArray(int n) {
