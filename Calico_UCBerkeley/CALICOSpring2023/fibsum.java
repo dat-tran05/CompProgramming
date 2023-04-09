@@ -1,52 +1,77 @@
 
-/*
-    Somewhere, something incredible is waiting to be known
-    Don’t worry about failure; you only have to be right once.
-    Don’t worry about WA; you only have to be ACCEPTED once ><
-*/
 import java.util.*;
 import java.lang.*;
 import java.io.*;
 import java.math.*;
 
-public class trib {
+public class fibsum {
 	static Scanner sc1 = new Scanner(System.in);
 	static PrintWriter out;
 	static FastReader sc = new FastReader();
-	final static int MOD = 1000000007;
-	static int[] trib = new int[35];
-	static int[] neg = new int[65];
+	final static int MOD = 998244353;
+	static long fib[] = new long[100002];
 	public static void main(String[] args) throws Exception {
+		fib[0] = 1;
+		fib[1] = 1;
+		for (int i = 2; i < fib.length; i++) {
+			fib[i] = (fib[i - 1] + fib[i - 2]) % (998244353);
+		}
 		out = new PrintWriter(System.out);
-		trib[0] = -1;
-		trib[1] = 0;
-		trib[2] = 1;
-		for (int i = 3; i < trib.length; i++) {
-			trib[i] = trib[i - 1] + trib[i - 2] + trib[i - 3];
-		}
-		neg[0] = 1;
-		neg[1] = 0;
-		neg[2] = -1;
-		for (int i = 3; i < neg.length; i++) {
-			neg[i] = -neg[i - 1] - neg[i - 2] + neg[i - 3];
-		}
 		int t = 1;
 		t = sc.nextInt();
 		while (t-- > 0) {
 			solve();
 		}
 		out.close();
+		
+		
 	}
 
 	public static void solve() {
 		int n = sc.nextInt();
-		if (n >= -1) {
-			out.println(trib[n + 1]);
-		} else {
-			out.println(neg[(int) (Math.abs(n)) + 1]);
+		int quer = sc.nextInt();
+		long[] fibs = new long[n+1];
+
+		for(int i = 0; i < quer; i++) {
+			int n1 = sc.nextInt();
+			int n2 = sc.nextInt();
+			for(int j = n1; j <= n2; j++) {
+				fibs[j] = (fibs[j] + fib[j - n1] % (998244353)) % (998244353);
+			}
+			
 		}
+		String s = "";
+		for(int i = 1; i < n+1; i++) {
+			s += fibs[i] % MOD + " ";
+		}
+		System.out.println(s.trim());
+		
 	}
 
+	static class depression {
+		int n1;
+		int n2;
+		int freq;
+
+		public depression(int n1, int n2) {
+			this.n1 = n1;
+			this.n2 = n2;
+			this.freq = 0;
+		}
+	}
+	public static int fib(int n)
+    {
+        int a = 1, b = 1, c;
+        if (n == 1)
+            return a;
+        for (int i = 3; i <= n; i++) {
+            c = a + b;
+            a = b;
+            b = c;
+        }
+        return b;
+    }
+	
 	public static long[] readArray(int n) {
 		long[] ret = new long[n];
 		for (int i = 0; i < n; i++) {

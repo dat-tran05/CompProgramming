@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="Fall2021"/>
 	<classpathentry kind="src" path="sp22"/>
+	<classpathentry kind="src" path="CALICOSpring2023"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
 		<attributes>
 			<attribute name="module" value="true"/>
